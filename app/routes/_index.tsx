@@ -4,7 +4,7 @@ import TeamHighlights from "@/components/TeamHighlights";
 export default function Index() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-red-800 text-white p-4">
+      <header className="bg-gradient-to-r from-red-700 to-red-900 text-white p-4">
         <nav className="container mx-auto flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold">
             AP Gaming
@@ -32,7 +32,7 @@ export default function Index() {
             </p>
             <Link
               to="/teams"
-              className="bg-white text-purple-700 px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition duration-300"
+              className="bg-white text-red-800 px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition duration-300"
             >
               Meet Our Team
             </Link>
