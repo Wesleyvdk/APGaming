@@ -8,8 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AP Gaming - University Esports Team",
-  description:
-    "The premier esports organization at our university, competing at the highest levels across multiple titles.",
+  description: "The AP Hogeschool Esports Organization",
 };
 
 export default function RootLayout({
