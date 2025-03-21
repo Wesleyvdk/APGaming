@@ -18,7 +18,7 @@ export function HeroSection() {
               transition={{ duration: 0.5 }}
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                <span className="gradient-text animate-glow">AP GAMING</span>
+                <span className="gradient-text">AP GAMING</span>
                 <br />
                 <span className="text-white">University Esports Team</span>
               </h1>
