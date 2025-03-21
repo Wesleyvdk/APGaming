@@ -1,26 +1,656 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Base variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ap-pink: #e6007e;
+  --ap-pink-light: #ff0090;
+  --ap-pink-dark: #c4006c;
+
+  --ap-dark: #121212;
+  --ap-dark-light: #1e1e1e;
+  --ap-dark-lighter: #2a2a2a;
+
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 240 5.9% 90%;
+  --input: 240 3.7% 15.9%;
+  --ring: 326 100% 45%;
+
+  --radius: 0.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --ap-pink: #e6007e; /* brand pink */
+  --ap-pink-light: #ff0090;
+  --ap-pink-dark: #c4006c;
+
+  --ap-dark: #121212; /* background or brand "dark" color */
+  --ap-dark-light: #1e1e1e;
+  --ap-dark-lighter: #2a2a2a;
+
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 326 100% 45%;
+  --primary-foreground: 0 0% 98%;
+
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 326 100% 45%;
+  --radius: 0.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-ap-dark: var(--ap-dark);
+  --color-ap-dark-light: var(--ap-dark-light);
+  --color-ap-dark-lighter: var(--ap-dark-lighter);
+
+  --color-ap-pink: var(--ap-pink);
+  --color-ap-pink-light: var(--ap-pink-light);
+  --color-ap-pink-dark: var(--ap-pink-dark);
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+/* Base body styling with a single unified background */
+/* body {
+  @apply bg-black text-white;
+  background: linear-gradient(180deg, #0a0a0a 0%, #121212 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+} */
+
+/* Base styles */
+body {
+  background-color: var(--color-ap-dark);
+  color: white;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Add a subtle noise texture to the entire page */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Subtle noise texture overlay */
+/*.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}*/
+
+/* Subtle grid overlay */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      to right,
+      rgba(230, 0, 126, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(230, 0, 126, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Subtle vignette effect */
+.vignette-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Content container */
+.content-container {
+  position: relative;
+  z-index: 10;
+}
+
+/* Section styling without borders or hard edges */
+.section {
+  @apply py-16 md:py-24 relative;
+  position: relative;
+  z-index: 10;
+}
+
+/* Section styling */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix for section transitions */
+section::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--color-ap-dark));
+  z-index: 2;
+}
+
+section.bg-ap-dark-light {
+  background-color: var(--color-ap-dark-light);
+  position: relative;
+}
+
+section.bg-ap-dark-light::before {
+  background: linear-gradient(
+    to bottom,
+    var(--color-ap-dark),
+    var(--color-ap-dark-light)
+  );
+}
+
+section.bg-ap-dark-light::after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-ap-dark-light),
+    var(--color-ap-dark)
+  );
+  z-index: 2;
+}
+
+section.bg-ap-dark-lighter {
+  background-color: var(--color-ap-dark-lighter);
+  position: relative;
+}
+
+section.bg-ap-dark-lighter::before {
+  background: linear-gradient(
+    to bottom,
+    var(--color-ap-dark-light),
+    var(--color-ap-dark-lighter)
+  );
+}
+
+/* Accent section with very subtle background */
+.section-accent {
+  position: relative;
+}
+
+.section-accent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(230, 0, 126, 0.08) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+/* Glow effects */
+.text-glow {
+  text-shadow: 0 0 10px #e6007e, 0 0 20px #e6007e;
+}
+
+.border-glow {
+  box-shadow: 0 0 5px #e6007e, 0 0 10px #e6007e;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #e6007e, #ff0090);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card styling */
+.gaming-card {
+  @apply bg-black/30 backdrop-blur-sm rounded-lg overflow-hidden;
+  border: 1px solid rgba(230, 0, 126, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Button styling */
+.btn-primary {
+  @apply bg-ap-pink text-white rounded-md font-medium transition-all duration-300;
+  box-shadow: 0 0 10px rgba(230, 0, 126, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: rgba(230, 0, 126, 0.9);
+  box-shadow: 0 0 15px rgba(230, 0, 126, 0.5);
+}
+
+.btn-outline {
+  @apply border border-ap-pink text-ap-pink rounded-md font-medium transition-all duration-300;
+}
+
+.btn-outline:hover {
+  background-color: rgba(230, 0, 126, 0.1);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* Utility classes */
+.bg-ap-dark {
+  background-color: var(--color-ap-dark);
+}
+
+.bg-ap-dark-light {
+  background-color: var(--color-ap-dark-light);
+}
+
+.bg-ap-dark-lighter {
+  background-color: var(--color-ap-dark-lighter);
+}
+
+.bg-ap-pink {
+  background-color: var(--color-ap-pink);
+}
+
+.bg-ap-pink\/10 {
+  background-color: rgba(230, 0, 126, 0.1);
+}
+
+.bg-ap-pink\/20 {
+  background-color: rgba(230, 0, 126, 0.2);
+}
+
+.bg-ap-pink\/30 {
+  background-color: rgba(230, 0, 126, 0.3);
+}
+
+.bg-ap-pink\/50 {
+  background-color: rgba(230, 0, 126, 0.5);
+}
+
+.bg-ap-pink\/80 {
+  background-color: rgba(230, 0, 126, 0.8);
+}
+
+.bg-ap-pink\/90 {
+  background-color: rgba(230, 0, 126, 0.9);
+}
+
+.bg-ap-dark\/50 {
+  background-color: rgba(18, 18, 18, 0.5);
+}
+
+.bg-ap-dark\/80 {
+  background-color: rgba(18, 18, 18, 0.8);
+}
+
+.bg-ap-dark\/95 {
+  background-color: rgba(18, 18, 18, 0.95);
+}
+
+.text-ap-pink {
+  color: var(--color-ap-pink);
+}
+
+.border-ap-pink {
+  border-color: var(--color-ap-pink);
+}
+
+.border-ap-pink\/10 {
+  border-color: rgba(230, 0, 126, 0.1);
+}
+
+.border-ap-pink\/20 {
+  border-color: rgba(230, 0, 126, 0.2);
+}
+
+.border-ap-pink\/30 {
+  border-color: rgba(230, 0, 126, 0.3);
+}
+
+.border-ap-pink\/50 {
+  border-color: rgba(230, 0, 126, 0.5);
+}
+
+.hover\:bg-ap-pink\/10:hover {
+  background-color: rgba(230, 0, 126, 0.1);
+}
+
+.hover\:bg-ap-pink\/90:hover {
+  background-color: rgba(230, 0, 126, 0.9);
+}
+
+.hover\:text-ap-pink:hover {
+  color: var(--color-ap-pink);
+}
+
+.hover\:border-ap-pink\/30:hover {
+  border-color: rgba(230, 0, 126, 0.3);
+}
+
+.hover\:border-ap-pink\/50:hover {
+  border-color: rgba(230, 0, 126, 0.5);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-ap-pink),
+    var(--color-ap-pink-light)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Text glow effect */
+.text-glow {
+  text-shadow: 0 0 10px var(--color-ap-pink), 0 0 20px var(--color-ap-pink);
+}
+
+.hover\:text-glow:hover {
+  text-shadow: 0 0 10px var(--color-ap-pink), 0 0 20px var(--color-ap-pink);
+}
+
+/* Animation classes */
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px var(--color-ap-pink), 0 0 20px var(--color-ap-pink),
+      0 0 30px var(--color-ap-pink);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--color-ap-pink-light),
+      0 0 30px var(--color-ap-pink-light), 0 0 40px var(--color-ap-pink-light);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Backdrop blur */
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+/* Transition utilities */
+.transition-all {
+  transition-property: all;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color;
+}
+
+.transition-transform {
+  transition-property: transform;
+}
+
+.transition-opacity {
+  transition-property: opacity;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
+/* Fix for radial gradients */
+.from-ap-pink\/10 {
+  --tw-gradient-from: rgba(230, 0, 126, 0.1);
+  --tw-gradient-stops: var(--tw-gradient-from),
+    var(--tw-gradient-to, rgba(230, 0, 126, 0));
+}
+
+.to-transparent {
+  --tw-gradient-to: transparent;
+}
+
+.from-ap-dark\/50 {
+  --tw-gradient-from: rgba(18, 18, 18, 0.5);
+  --tw-gradient-stops: var(--tw-gradient-from),
+    var(--tw-gradient-to, rgba(18, 18, 18, 0));
+}
+
+.to-ap-dark {
+  --tw-gradient-to: var(--color-ap-dark);
+}
+
+.from-ap-dark-lighter {
+  --tw-gradient-from: var(--color-ap-dark-lighter);
+  --tw-gradient-stops: var(--tw-gradient-from),
+    var(--tw-gradient-to, rgba(42, 42, 42, 0));
+}
+
+.from-ap-pink\/30 {
+  --tw-gradient-from: rgba(230, 0, 126, 0.3);
+  --tw-gradient-stops: var(--tw-gradient-from),
+    var(--tw-gradient-to, rgba(230, 0, 126, 0));
+}
+
+/* Background gradients */
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-t {
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--tw-gradient-stops));
+}
+
+.bg-\[radial-gradient\(circle_at_center,
+var\(--tw-gradient-stops\)\)\] {
+  background-image: radial-gradient(circle at center, var(--tw-gradient-stops));
+}
+
+/* Fix for section overlaps */
+main {
+  position: relative;
+  z-index: 0;
+}
+
+main > section {
+  position: relative;
+  z-index: 1;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+main > section:not(:first-child) {
+  margin-top: -2rem;
+  padding-top: 7rem;
+}
+
+/* Smooth section transitions */
+.section-transition-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--color-ap-dark), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.section-transition-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to top, var(--color-ap-dark), transparent);
+  z-index: 2;
+  pointer-events: none;
 }
