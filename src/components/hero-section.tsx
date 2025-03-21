@@ -24,8 +24,8 @@ export function HeroSection() {
               </h1>
               <p className="text-gray-300 text-lg mb-8 max-w-lg">
                 Join the elite ranks of competitive gamers at our university. We
-                compete at the highest levels across multiple titles and
-                platforms.
+                compete at the highest level of the Belgian Student League
+                across multiple titles.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button className="bg-ap-pink hover:bg-ap-pink/90 text-white px-8 py-6 text-lg">
