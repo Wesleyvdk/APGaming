@@ -32,15 +32,15 @@ export function FeaturedNews() {
                 </div>
                 <div className="flex items-center text-gray-400 text-sm">
                   <Calendar className="h-4 w-4 mr-1" />
-                  March 15, 2025
+                  May 31st, 2024
                 </div>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">
-                AP Gaming Wins National Championship in League of Legends
+                AP Gaming Wins National Championship in Rocket League
               </h2>
               <p className="text-gray-300 mb-6">
-                Our League of Legends team has secured the National Collegiate
-                Championship with a perfect 12-0 record throughout the
+                Our Rocket League team has secured the National Collegiate
+                Championship with a perfect 21-0 record throughout the
                 tournament. This marks the first national title in the program's
                 history and establishes AP Gaming as a powerhouse in collegiate
                 esports.
