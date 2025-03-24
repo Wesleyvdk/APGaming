@@ -49,7 +49,9 @@ export function Navbar() {
           </div>
           <div className="hidden md:block">
             <Button className="bg-ap-pink hover:bg-ap-pink/90 text-white">
-              Join the Team
+              <Link href="https://discord.gg/epPREvrJSE" target="_blank">
+                Join the Team
+              </Link>
             </Button>
           </div>
           <div className="md:hidden">
@@ -85,7 +87,7 @@ export function Navbar() {
             ))}
             <div className="pt-2">
               <Button className="w-full bg-ap-pink hover:bg-ap-pink/90 text-white">
-                Join the Team
+                <Link href="https://discord.gg/epPREvrJSE">Join the Team</Link>
               </Button>
             </div>
           </div>
