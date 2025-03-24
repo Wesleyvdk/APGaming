@@ -6,28 +6,28 @@ import { Mail, Twitter, Linkedin } from "lucide-react";
 
 const teamMembers = [
   {
-    name: "Alex Johnson",
+    name: "ehz",
     role: "Founder & Director",
     image: "/placeholder.svg?height=400&width=400",
-    bio: "Alex founded AP Gaming in 2021 with a vision to create a competitive esports program at the university. Former professional League of Legends player.",
+    bio: "ehz founded AP Gaming in 2021 with a vision to create a competitive esports program at the university.",
   },
   {
-    name: "Sam Rodriguez",
-    role: "Head Coach",
+    name: "Spider",
+    role: "Co-Founder",
     image: "/placeholder.svg?height=400&width=400",
-    bio: "Sam brings 5+ years of coaching experience to AP Gaming, having previously coached semi-professional teams in multiple games.",
+    bio: "Spider brings esports experience to AP Gaming, having previously played in semi-professional teams in Rocket League.",
   },
   {
-    name: "Jordan Smith",
-    role: "Operations Manager",
+    name: "SvenC.",
+    role: "Co-Founder",
     image: "/placeholder.svg?height=400&width=400",
-    bio: "Jordan handles the day-to-day operations of AP Gaming, from scheduling practices to organizing tournaments and travel.",
+    bio: "As a researcher in video game experiences and lecturer at AP University of Applied Sciences & Arts, Sven joined AP Gaming as co-founder to bridge academic expertise with competitive gaming.",
   },
   {
-    name: "Taylor Williams",
-    role: "Community Manager",
+    name: "Laura H.",
+    role: "Co-Founder",
     image: "/placeholder.svg?height=400&width=400",
-    bio: "Taylor builds and nurtures our community, organizing events and managing our social media presence.",
+    bio: "As a lecturer and key expert in the 'Better Esports Analytics for Teams' project at AP University, Laura collaborated with PM Sven to establish AP Gaming, bringing her academic expertise to the foundation.",
   },
 ];
 

@@ -13,9 +13,8 @@ import {
 const shortTermGoals = [
   {
     icon: <Trophy className="h-6 w-6 text-ap-pink" />,
-    title: "Defend National Title",
-    description:
-      "Successfully defend our League of Legends national championship title in the upcoming season.",
+    title: "Expand the Staff",
+    description: "Expand our staff to prepare us for next year.",
   },
   {
     icon: <Users className="h-6 w-6 text-ap-pink" />,
@@ -25,9 +24,9 @@ const shortTermGoals = [
   },
   {
     icon: <TrendingUp className="h-6 w-6 text-ap-pink" />,
-    title: "Improve Training Programs",
+    title: "Improve Social Media Presence",
     description:
-      "Enhance our coaching staff and implement structured training programs for all teams.",
+      "Enhance our digital footprint through active engagement on social platforms and regular content creation to showcase our teams and achievements.",
   },
 ];
 
@@ -40,15 +39,15 @@ const longTermGoals = [
   },
   {
     icon: <Rocket className="h-6 w-6 text-ap-pink" />,
-    title: "Esports Scholarship Program",
+    title: "Esports Merchandise",
     description:
-      "Establish a dedicated scholarship program for talented esports athletes by 2026.",
+      "Establish a dedicated Merchandise store for AP Gaming by 2026.",
   },
   {
     icon: <CheckCircle2 className="h-6 w-6 text-ap-pink" />,
-    title: "State-of-the-Art Facility",
+    title: "Academic Esports Integration",
     description:
-      "Build a cutting-edge esports arena on campus with spectator seating by 2028.",
+      "Develop an accredited esports management program and establish partnerships with industry leaders by 2027.",
   },
 ];
 

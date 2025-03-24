@@ -4,58 +4,34 @@ import { motion } from "framer-motion";
 
 const milestones = [
   {
-    year: "2021",
-    title: "AP Gaming Founded",
+    year: "2021 - 2022",
+    title: "AP Gaming First appearance",
     description:
-      "AP Gaming was established by a group of passionate students with a vision to create a competitive esports program at the university.",
+      "AP Gaming first appeared by a group of students who joined the Belgian Student League in Rocket League to have fun.",
   },
   {
-    year: "2021",
-    title: "First League of Legends Team",
+    year: "2022 - 2023",
+    title: "First Competitive Team",
     description:
-      "Formed our first competitive team focusing on League of Legends with five founding members.",
+      "Formed our first competitive team focusing on Rocket League with our founding members ehz and Spider.",
   },
   {
-    year: "2022",
-    title: "First Tournament Victory",
+    year: "2023 - 2024",
+    title: "Officially established AP Gaming",
     description:
-      "Won our first regional tournament in League of Legends, putting AP Gaming on the collegiate esports map.",
+      "Officially established AP Gaming as a recognized student organization at our university and Belgian Student League.",
   },
   {
-    year: "2022",
-    title: "Expanded to Valorant",
+    year: "2023 - 2024",
+    title: "First League Victory",
     description:
-      "Added a competitive Valorant team to our roster, expanding our presence in tactical FPS games.",
+      "Won our first League in BSL with a spectactular 21-0 record, beating the previous 21-1 record.",
   },
   {
-    year: "2023",
-    title: "Dedicated Gaming Facility",
+    year: "2024 - 2025",
+    title: "Expanded to League of Legends",
     description:
-      "Secured a dedicated training facility on campus with professional-grade equipment and practice spaces.",
-  },
-  {
-    year: "2023",
-    title: "Rocket League Team Added",
-    description:
-      "Expanded our program to include Rocket League, quickly becoming competitive in regional tournaments.",
-  },
-  {
-    year: "2024",
-    title: "National Championship Qualification",
-    description:
-      "Our League of Legends team qualified for the National Collegiate Championship for the first time.",
-  },
-  {
-    year: "2024",
-    title: "Major Sponsorship Deal",
-    description:
-      "Secured our first major sponsorship deal with a leading gaming hardware manufacturer.",
-  },
-  {
-    year: "2025",
-    title: "National Champions",
-    description:
-      "Won the National Collegiate Championship in League of Legends, cementing our status as a top-tier program.",
+      "Added a competitive League Of Legends team to our roster, expanding our presence in BSL.",
   },
 ];
 
