@@ -33,16 +33,24 @@ export function UpcomingEvents() {
           throw new Error("Failed to fetch events");
         }
 
-        // Filter for upcoming events
+        // Filter for upcoming events using `startDate`
         const now = new Date();
         const upcomingEvents = data.events
-          .filter((event: any) => new Date(event.date) >= now)
+          .filter((event: any) => new Date(event.startDate) >= now) // Use `startDate` here
           .map((event: any) => ({
             id: event.id,
             title: event.title,
             description: event.description || "",
-            date: event.date,
-            time: event.time || "All Day",
+            date: event.startDate, // Use `startDate` here
+            time: event.endDate
+              ? `${new Date(event.startDate).toLocaleTimeString("en-US", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })} - ${new Date(event.endDate).toLocaleTimeString("en-US", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}`
+              : "All Day",
             location: event.location || "Online",
             type: event.type || "Event",
             game: event.game || "Multiple Games",
