@@ -26,29 +26,54 @@ export default async function EventPage({
 
   const event = response;
 
-  // Format date for display
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    });
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return "Date TBD";
+      }
+      return date.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+    } catch (error) {
+      console.error("Date formatting error:", error);
+      return "Date TBD";
+    }
   };
 
   // Format time for display
   const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return "Time TBD";
+      }
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch (error) {
+      console.error("Time formatting error:", error);
+      return "Time TBD";
+    }
+  };
+
+  const formatDescription = (description: string) => {
+    if (!description) return "";
+
+    // Replace newlines with <br> tags
+    return description.split("\n").map((line, i) => (
+      <p key={i} className="mb-4">
+        {line}
+      </p>
+    ));
   };
 
   return (
     <>
-      {/* Fixed background overlays */}
       <div className="grid-overlay"></div>
       <div className="vignette-overlay"></div>
 
@@ -82,7 +107,7 @@ export default async function EventPage({
                     <div>
                       <p className="text-sm text-gray-400">Date</p>
                       <p className="font-medium text-white">
-                        {formatDate(event.date)}
+                        {formatDate(event.startDate || event.date)}
                       </p>
                     </div>
                   </div>
@@ -94,7 +119,8 @@ export default async function EventPage({
                     <div>
                       <p className="text-sm text-gray-400">Time</p>
                       <p className="font-medium text-white">
-                        {formatTime(event.date)}
+                        {formatTime(event.startDate || event.date)}
+                        {event.endDate && ` - ${formatTime(event.endDate)}`}
                       </p>
                     </div>
                   </div>
@@ -116,10 +142,9 @@ export default async function EventPage({
                   <h2 className="text-2xl font-bold mb-4 text-white">
                     About This Event
                   </h2>
-                  <div
-                    className="prose prose-invert max-w-none"
-                    dangerouslySetInnerHTML={{ __html: event.description }}
-                  />
+                  <div className="prose prose-invert max-w-none text-gray-300">
+                    {formatDescription(event.description)}
+                  </div>
                 </div>
               </div>
 
