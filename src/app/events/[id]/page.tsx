@@ -8,18 +8,11 @@ import { Calendar, MapPin, Clock, Users } from "lucide-react";
 
 export const revalidate = 3600; // Revalidate this page every hour
 
-interface EventPageProps {
-  params: {
-    id: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
 export default async function EventPage({
   params,
   searchParams,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   searchParams: any;
 }) {
   const paramProps = await params;
