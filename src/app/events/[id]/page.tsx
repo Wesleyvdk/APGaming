@@ -18,7 +18,10 @@ interface EventPageProps {
 export default async function EventPage({
   params,
   searchParams,
-}: EventPageProps) {
+}: {
+  params: { id: string };
+  searchParams: any;
+}) {
   const paramProps = await params;
   const searchProps = await searchParams;
 
