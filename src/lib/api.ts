@@ -2,7 +2,6 @@ const DASHBOARD_API_URL = process.env.NEXT_PUBLIC_DASHBOARD_API_URL || "https://
 
 
 export async function getPublicEvents() {
-    console.log("DASHBOARD_API_URL", DASHBOARD_API_URL)
     try {
         const response = await fetch(`${DASHBOARD_API_URL}/public/events`, {
             method: "GET",
@@ -16,7 +15,8 @@ export async function getPublicEvents() {
             throw new Error("Failed to fetch events")
         }
 
-        return await response.json()
+        const data = await response.json();
+        return await data;
     } catch (error) {
         console.error("Error fetching events:", error)
         return { events: [] }

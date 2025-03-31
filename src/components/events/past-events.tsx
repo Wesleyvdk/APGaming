@@ -1,37 +1,69 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { Trophy } from "lucide-react";
+import { Calendar, MapPin, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { getPublicEvents } from "@/lib/api";
 
-const pastEvents = [
-  {
-    id: 1,
-    title: "Winter Championship",
-    game: "League of Legends",
-    date: "February 2025",
-    result: "Champions",
-    image: "/placeholder.svg?height=300&width=500",
-  },
-  {
-    id: 2,
-    title: "Regional Qualifier",
-    game: "Valorant",
-    date: "January 2025",
-    result: "2nd Place",
-    image: "/placeholder.svg?height=300&width=500",
-  },
-  {
-    id: 3,
-    title: "University Cup",
-    game: "Rocket League",
-    date: "December 2024",
-    result: "Champions",
-    image: "/placeholder.svg?height=300&width=500",
-  },
-];
+type Event = {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  time?: string;
+  location?: string;
+  type?: string;
+  game?: string;
+};
 
 export function PastEvents() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        setLoading(true);
+        const data = await getPublicEvents();
+
+        if (!data.events) {
+          throw new Error("Failed to fetch events");
+        }
+
+        // Filter for past events
+        const now = new Date();
+        const pastEvents = data.events
+          .filter((event: any) => new Date(event.date) < now)
+          .map((event: any) => ({
+            id: event.id,
+            title: event.title,
+            description: event.description || "",
+            date: event.date,
+            time: event.time || "All Day",
+            location: event.location || "Online",
+            type: event.type || "Event",
+            game: event.game || "Multiple Games",
+          }));
+
+        setEvents(pastEvents);
+      } catch (err) {
+        console.error("Error fetching past events:", err);
+        setError("Failed to load past events. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchEvents();
+  }, []);
+
+  // If no past events, don't render the section
+  if (!loading && events.length === 0 && !error) {
+    return null;
+  }
+
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -52,51 +84,103 @@ export function PastEvents() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Relive our recent tournaments and events. Check out the highlights
-            and results.
+            Check out our previous tournaments and events.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {pastEvents.map((event, index) => (
-            <motion.div
-              key={event.id}
-              className="gaming-card overflow-hidden group"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-ap-pink"></div>
+          </div>
+        ) : error ? (
+          <motion.div
+            className="gaming-card p-6 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-red-400">{error}</p>
+            <Button
+              className="mt-4 bg-ap-pink hover:bg-ap-pink/90 text-white"
+              onClick={() => window.location.reload()}
             >
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={event.image || "/placeholder.svg"}
-                  alt={event.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                <div className="absolute bottom-4 left-4 flex items-center">
-                  <Trophy className="h-5 w-5 text-ap-pink mr-2" />
-                  <span className="text-white font-bold">{event.result}</span>
+              Try Again
+            </Button>
+          </motion.div>
+        ) : (
+          <div className="space-y-8">
+            {events.map((event, index) => (
+              <motion.div
+                key={event.id}
+                className="gaming-card overflow-hidden opacity-80 hover:opacity-100 transition-opacity"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className="p-6 md:p-8">
+                  <div className="flex flex-col lg:flex-row gap-6">
+                    <div className="lg:w-1/4">
+                      <div className="bg-ap-pink/10 rounded-lg p-4 text-center">
+                        <Calendar className="h-6 w-6 mx-auto mb-2 text-ap-pink" />
+                        <div className="text-sm text-gray-400">
+                          {new Date(event.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </div>
+                        <div className="text-lg font-bold text-white mt-1">
+                          {event.time}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="lg:w-2/4">
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <div className="bg-ap-pink/20 rounded-full px-3 py-1 text-xs text-ap-pink">
+                          {event.type}
+                        </div>
+                        <div className="bg-ap-dark-lighter rounded-full px-3 py-1 text-xs text-gray-300">
+                          {event.game}
+                        </div>
+                      </div>
+
+                      <h3 className="text-xl md:text-2xl font-bold mb-3 text-white">
+                        {event.title}
+                      </h3>
+
+                      <div className="flex flex-col sm:flex-row gap-4 text-sm text-gray-400 mb-4">
+                        <div className="flex items-center">
+                          <MapPin className="h-4 w-4 mr-1 text-ap-pink" />
+                          {event.location}
+                        </div>
+                        <div className="flex items-center">
+                          <Clock className="h-4 w-4 mr-1 text-ap-pink" />
+                          {event.time}
+                        </div>
+                      </div>
+
+                      <p className="text-gray-300">{event.description}</p>
+                    </div>
+
+                    <div className="lg:w-1/4 flex flex-col justify-center items-center lg:items-end gap-4">
+                      <Button
+                        className="w-full sm:w-auto bg-ap-dark-lighter hover:bg-ap-dark-light text-white border border-ap-pink/30"
+                        onClick={() =>
+                          window.open(`/events/${event.id}`, "_blank")
+                        }
+                      >
+                        View Results
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6">
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-xl font-bold text-white group-hover:text-ap-pink transition-colors duration-300">
-                    {event.title}
-                  </h3>
-                  <span className="text-gray-400 text-sm">{event.date}</span>
-                </div>
-                <div className="inline-block bg-ap-pink/20 rounded-full px-3 py-1 text-xs text-ap-pink mb-4">
-                  {event.game}
-                </div>
-                <button className="w-full bg-ap-dark-lighter hover:bg-ap-dark-light text-white border border-ap-pink/30 py-2 rounded-md transition-all duration-300">
-                  View Highlights
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

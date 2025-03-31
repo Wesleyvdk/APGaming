@@ -19,13 +19,16 @@ export default async function EventPage({
   params,
   searchParams,
 }: EventPageProps) {
-  const response = await getPublicEvent(params.id);
+  const paramProps = await params;
+  const searchProps = await searchParams;
 
-  if (!response || !response.event) {
+  const response = await getPublicEvent(paramProps.id);
+
+  if (!response) {
     notFound();
   }
 
-  const { event } = response;
+  const event = response;
 
   // Format date for display
   const formatDate = (dateString: string) => {
