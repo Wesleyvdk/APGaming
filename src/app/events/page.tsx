@@ -1,3 +1,4 @@
+import { getPublicEvents } from "@/lib/api";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { EventsHero } from "@/components/events/events-hero";
@@ -12,10 +13,13 @@ export const metadata = {
     "Upcoming tournaments, matches, and events for AP Gaming esports teams.",
 };
 
-export default function EventsPage() {
+export const revalidate = 3600;
+
+export default async function EventsPage() {
+  await getPublicEvents();
+
   return (
     <>
-      {/* Fixed background overlays */}
       <div className="grid-overlay"></div>
       <div className="vignette-overlay"></div>
 
