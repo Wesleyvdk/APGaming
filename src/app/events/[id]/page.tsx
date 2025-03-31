@@ -12,9 +12,13 @@ interface EventPageProps {
   params: {
     id: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function EventPage({ params }: EventPageProps) {
+export default async function EventPage({
+  params,
+  searchParams,
+}: EventPageProps) {
   const response = await getPublicEvent(params.id);
 
   if (!response || !response.event) {
