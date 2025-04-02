@@ -32,7 +32,6 @@ export function PastEvents() {
           throw new Error("Failed to fetch events");
         }
 
-        // Filter for past events
         const now = new Date();
         const pastEvents = data.events
           .filter((event: any) => new Date(event.date) < now)
@@ -59,7 +58,6 @@ export function PastEvents() {
     fetchEvents();
   }, []);
 
-  // If no past events, don't render the section
   if (!loading && events.length === 0 && !error) {
     return null;
   }

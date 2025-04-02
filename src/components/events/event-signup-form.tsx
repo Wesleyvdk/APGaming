@@ -43,7 +43,6 @@ export function EventSignupForm({ eventId, eventTitle }: EventSignupFormProps) {
       }
 
       setSuccess(true);
-      // Reset form
       setName("");
       setEmail("");
       setWantsReminder(true);

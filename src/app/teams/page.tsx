@@ -4,6 +4,9 @@ import { TeamHero } from "@/components/teams/team-hero";
 import { TeamRoster } from "@/components/teams/team-roster";
 import { TeamAchievements } from "@/components/teams/team-achievements";
 import { TeamSchedule } from "@/components/teams/team-schedule";
+import { TeamLoading } from "@/components/teams/team-loading";
+import { TeamList } from "@/components/teams/team-list";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Teams | AP Gaming",
@@ -20,9 +23,9 @@ export default function TeamsPage() {
       <main className="min-h-screen">
         <Navbar />
         <TeamHero />
-        <TeamRoster />
-        <TeamAchievements />
-        <TeamSchedule />
+        <Suspense fallback={<TeamLoading />}>
+          <TeamList />
+        </Suspense>
         <Footer />
       </main>
     </>

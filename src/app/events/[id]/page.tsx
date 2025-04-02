@@ -6,7 +6,7 @@ import { EventSignupForm } from "@/components/events/event-signup-form";
 import Image from "next/image";
 import { Calendar, MapPin, Clock, Users } from "lucide-react";
 
-export const revalidate = 3600; // Revalidate this page every hour
+export const revalidate = 3600;
 
 export default async function EventPage({
   params,
@@ -44,7 +44,6 @@ export default async function EventPage({
     }
   };
 
-  // Format time for display
   const formatTime = (dateString: string) => {
     try {
       const date = new Date(dateString);
@@ -64,7 +63,6 @@ export default async function EventPage({
   const formatDescription = (description: string) => {
     if (!description) return "";
 
-    // Replace newlines with <br> tags
     return description.split("\n").map((line, i) => (
       <p key={i} className="mb-4">
         {line}

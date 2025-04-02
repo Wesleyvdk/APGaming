@@ -33,15 +33,14 @@ export function UpcomingEvents() {
           throw new Error("Failed to fetch events");
         }
 
-        // Filter for upcoming events using `startDate`
         const now = new Date();
         const upcomingEvents = data.events
-          .filter((event: any) => new Date(event.startDate) >= now) // Use `startDate` here
+          .filter((event: any) => new Date(event.startDate) >= now)
           .map((event: any) => ({
             id: event.id,
             title: event.title,
             description: event.description || "",
-            date: event.startDate, // Use `startDate` here
+            date: event.startDate,
             time: event.endDate
               ? `${new Date(event.startDate).toLocaleTimeString("en-US", {
                   hour: "2-digit",
@@ -54,7 +53,7 @@ export function UpcomingEvents() {
             location: event.location || "Online",
             type: event.type || "Event",
             game: event.game || "Multiple Games",
-            registration: true, // Assume all events can be registered for
+            registration: true,
           }));
 
         setEvents(upcomingEvents);
@@ -203,7 +202,6 @@ export function UpcomingEvents() {
                         variant="outline"
                         className="w-full sm:w-auto border-ap-pink/50 text-ap-pink hover:bg-ap-pink/10"
                         onClick={() => {
-                          // Create calendar event
                           const eventDate = new Date(event.date);
                           const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
                             event.title

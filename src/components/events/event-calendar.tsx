@@ -32,7 +32,6 @@ export function EventCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [calendarData, setCalendarData] = useState<CalendarMonth | null>(null);
 
-  // Function to generate calendar data for a given month
   const generateCalendarData = (date: Date, events: any[]) => {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -40,10 +39,9 @@ export function EventCalendar() {
     const lastDay = new Date(year, month + 1, 0);
 
     const monthName = firstDay.toLocaleString("default", { month: "long" });
-    const firstDayOfMonth = firstDay.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const firstDayOfMonth = firstDay.getDay();
     const daysInMonth = lastDay.getDate();
 
-    // Initialize days array
     const days: CalendarEvent[] = Array.from(
       { length: daysInMonth },
       (_, i) => ({
@@ -53,9 +51,8 @@ export function EventCalendar() {
       })
     );
 
-    // Add events to the calendar
     events.forEach((event) => {
-      const eventDate = new Date(event.startDate); // Use `startDate` here
+      const eventDate = new Date(event.startDate);
       if (eventDate.getMonth() === month && eventDate.getFullYear() === year) {
         const day = eventDate.getDate();
         days[day - 1].events.push(event.title);
@@ -72,7 +69,6 @@ export function EventCalendar() {
     };
   };
 
-  // Function to navigate to previous month
   const goToPreviousMonth = () => {
     setCurrentDate((prev) => {
       const newDate = new Date(prev);
@@ -81,7 +77,6 @@ export function EventCalendar() {
     });
   };
 
-  // Function to navigate to next month
   const goToNextMonth = () => {
     setCurrentDate((prev) => {
       const newDate = new Date(prev);
@@ -90,7 +85,6 @@ export function EventCalendar() {
     });
   };
 
-  // Fetch events and generate calendar data
   useEffect(() => {
     async function fetchEvents() {
       try {
@@ -261,15 +255,14 @@ export function UpcomingEvents() {
           throw new Error("Failed to fetch events");
         }
 
-        // Filter for upcoming events using `startDate`
         const now = new Date();
         const upcomingEvents = data.events
-          .filter((event: any) => new Date(event.startDate) >= now) // Use `startDate` here
+          .filter((event: any) => new Date(event.startDate) >= now)
           .map((event: any) => ({
             id: event.id,
             title: event.title,
             description: event.description || "",
-            date: event.startDate, // Use `startDate` here
+            date: event.startDate,
             time: event.endDate
               ? `${new Date(event.startDate).toLocaleTimeString("en-US", {
                   hour: "2-digit",
@@ -282,7 +275,7 @@ export function UpcomingEvents() {
             location: event.location || "Online",
             type: event.type || "Event",
             game: event.game || "Multiple Games",
-            registration: true, // Assume all events can be registered for
+            registration: true,
           }));
 
         setEvents(upcomingEvents);
@@ -431,7 +424,6 @@ export function UpcomingEvents() {
                         variant="outline"
                         className="w-full sm:w-auto border-ap-pink/50 text-ap-pink hover:bg-ap-pink/10"
                         onClick={() => {
-                          // Create calendar event
                           const eventDate = new Date(event.date);
                           const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
                             event.title
