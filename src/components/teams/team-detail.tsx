@@ -91,9 +91,9 @@ export function TeamDetail({ team }: TeamDetailProps) {
                     <h3 className="text-xl font-bold mb-1 text-white group-hover:text-ap-pink transition-colors duration-300">
                       {player.inGameName}
                     </h3>
-                    <p className="text-gray-300 mb-1">
+                    {/* <p className="text-gray-300 mb-1">
                       {player.firstName} {player.lastName}
-                    </p>
+                    </p> */}
                     <p className="text-ap-pink font-medium mb-4">
                       {player.role}
                     </p>
