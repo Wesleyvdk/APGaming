@@ -6,13 +6,11 @@ import { NewsArticleLoading } from "@/components/news/news-article-loading";
 import { getNewsArticleById } from "@/lib/api";
 import { notFound } from "next/navigation";
 
-interface NewsArticlePageProps {
-  params: {
-    id: string;
-  };
-}
-
-export async function generateMetadata({ params }: NewsArticlePageProps) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   try {
     const paramProps = await params;
     const article = await getNewsArticleById(paramProps.id);
@@ -32,7 +30,9 @@ export async function generateMetadata({ params }: NewsArticlePageProps) {
 
 export default async function NewsArticlePage({
   params,
-}: NewsArticlePageProps) {
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const paramProps = await params;
   return (
     <>

@@ -188,7 +188,7 @@ export function NewsGrid() {
                 }`}
                 onClick={() => setSelectedTag(tag.id)}
               >
-                {tag.name} {tag.articleCount > 0 && `(${tag.articleCount})`}
+                {tag.name} {tag.articleCount! > 0 && `(${tag.articleCount})`}
               </button>
             ))}
           </div>

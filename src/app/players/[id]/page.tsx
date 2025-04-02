@@ -6,13 +6,11 @@ import { PlayerDetailLoading } from "@/components/players/player-detail-loading"
 import { getPlayerById } from "@/lib/api";
 import { notFound } from "next/navigation";
 
-interface PlayerPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export async function generateMetadata({ params }: PlayerPageProps) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   try {
     const paramProps = await params;
     const player = await getPlayerById(paramProps.id);
@@ -28,7 +26,11 @@ export async function generateMetadata({ params }: PlayerPageProps) {
   }
 }
 
-export default async function PlayerPage({ params }: PlayerPageProps) {
+export default async function PlayerPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const paramProps = await params;
   return (
     <>

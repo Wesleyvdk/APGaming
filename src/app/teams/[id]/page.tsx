@@ -6,13 +6,11 @@ import { TeamDetailLoading } from "@/components/teams/team-detail-loading";
 import { getTeamById } from "@/lib/api";
 import { notFound } from "next/navigation";
 
-interface TeamPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export async function generateMetadata({ params }: TeamPageProps) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   try {
     const paramProps = await params;
     const team = await getTeamById(paramProps.id);
@@ -28,7 +26,11 @@ export async function generateMetadata({ params }: TeamPageProps) {
   }
 }
 
-export default async function TeamPage({ params }: TeamPageProps) {
+export default async function TeamPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const paramProps = await params;
   return (
     <>
