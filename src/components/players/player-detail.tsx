@@ -55,10 +55,10 @@ export function PlayerDetail({ player }: PlayerDetailProps) {
               <h1 className="text-4xl md:text-6xl font-bold mb-2 gradient-text">
                 {player.inGameName}
               </h1>
-              <h2 className="text-2xl text-white mb-6">
+              {/* <h2 className="text-2xl text-white mb-6">
                 {player.firstName} {player.lastName}
               </h2>
-
+ */}
               <div className="flex flex-wrap gap-4 mb-8 justify-center md:justify-start">
                 {player.country && (
                   <div className="flex items-center bg-ap-dark-lighter rounded-full px-4 py-2">
